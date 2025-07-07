@@ -2,8 +2,10 @@ using System;
 using System.Collections.Generic;
 using UnityEditorInternal;
 using UnityEngine;
+using Unity.Netcode;
+using Cysharp.Threading.Tasks;
 
-public class PlayerVehicleController : MonoBehaviour
+public class PlayerVehicleController : NetworkBehaviour
 {
     public class SpringData
     {
@@ -25,12 +27,16 @@ public class PlayerVehicleController : MonoBehaviour
     [SerializeField] private VehicleSettingsSO _vehicleSettings;
     [SerializeField] private Rigidbody _vehicleRigidbody;
     [SerializeField] private BoxCollider _vehicleCollider;
-    [SerializeField] private Light _frontLight;
+    [SerializeField] private Light _frontRightLight;
+    [SerializeField] private Light _frontLeftLight;
     [SerializeField] private Light _backLight;
 
     private Dictionary<WheelType, SpringData> _springDatas;
     private float _steerInput;
     private float _accelerationInput;
+    private float _frontLightOnIntensity = 105f;
+    private float _frontLightOffIntensity = 0.1f;
+    private bool _frontLightsOn = false;
 
     public Vector3 Velocity => _vehicleRigidbody.linearVelocity;
     public Vector3 Forward => transform.forward;
@@ -46,14 +52,32 @@ public class PlayerVehicleController : MonoBehaviour
         }
     }
 
+    public override void OnNetworkSpawn()
+    {
+        _vehicleRigidbody.isKinematic = true;
+        SetOwnerRigidbodyKinematicAsync();
+    }
+
     private void Update()
     {
+        if(!IsOwner) return;
+
         SetSteerInput(Input.GetAxis("Horizontal"));
         SetAccelerateInput(Input.GetAxis("Vertical"));
+        
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            _frontLightsOn = !_frontLightsOn;
+            float intensity = _frontLightsOn ? _frontLightOnIntensity : _frontLightOffIntensity;
+            if (_frontLeftLight != null) _frontLeftLight.intensity = intensity;
+            if (_frontRightLight != null) _frontRightLight.intensity = intensity;
+        }
     }
 
     private void FixedUpdate()
     {
+        if(!IsOwner) return;
+        
         UpdateSuspension();
         UpdateSteering();
         UpdateAcceleration();
@@ -301,6 +325,14 @@ public class PlayerVehicleController : MonoBehaviour
     public float GetSpringCurrentLength(WheelType wheelType)
     {
         return _springDatas[wheelType]._currentLength;
+    }
+
+    private async void SetOwnerRigidbodyKinematicAsync()
+    {
+        if(IsOwner){
+            await UniTask.DelayFrame(1);
+            _vehicleRigidbody.isKinematic = false;
+        }
     }
 }
 

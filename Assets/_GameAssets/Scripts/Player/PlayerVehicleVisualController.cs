@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Netcode;
 
-public class PlayerVehicleVisualController : MonoBehaviour
+public class PlayerVehicleVisualController : NetworkBehaviour
 {
     [SerializeField] private PlayerVehicleController _playerVehicleController;
     [SerializeField] private Transform _wheelFrontLeft, _wheelFrontRight, _wheelBackLeft, _wheelBackRight;
@@ -34,6 +35,8 @@ public class PlayerVehicleVisualController : MonoBehaviour
 
     private void Update()
     {
+        if(!_playerVehicleController.IsOwner) return;
+
         UpdateVisualStates();
         RotateWheels();
         SetSuspension();
