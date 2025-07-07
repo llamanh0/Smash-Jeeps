@@ -100,9 +100,10 @@ GameObject:
   - component: {fileID: 8807962072512093282}
   - component: {fileID: 5765890954461758962}
   - component: {fileID: 1131163099570922802}
+  - component: {fileID: 3787697171652378506}
+  - component: {fileID: 2651295193821379199}
   - component: {fileID: 1858308363598566171}
   - component: {fileID: 1478538007090604060}
-  - component: {fileID: 3787697171652378506}
   - component: {fileID: 8682576512396399869}
   - component: {fileID: 7942059211956287943}
   - component: {fileID: 5520349603826398117}
@@ -195,6 +196,32 @@ MonoBehaviour:
   _wheelsSpinSpeed: 70
   _wheelYWhenSpringMin: 0.6
   _wheelYWhenSpringMax: 0.3
+--- !u!114 &3787697171652378506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1361591847494388302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b6efe3dee3d046e1bdee2edfb1ec826, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  _playerCamera: {fileID: 4494502016914810449}
+--- !u!114 &2651295193821379199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1361591847494388302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00293b0ab09c64754a8316a007a9f5ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1858308363598566171
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -258,20 +285,6 @@ MonoBehaviour:
   UseRigidBodyForMotion: 0
   AutoUpdateKinematicState: 1
   AutoSetKinematicOnDespawn: 1
---- !u!114 &3787697171652378506
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1361591847494388302}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b6efe3dee3d046e1bdee2edfb1ec826, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ShowTopMostFoldoutHeaderGroup: 1
-  _playerCamera: {fileID: 4494502016914810449}
 --- !u!135 &8682576512396399869
 SphereCollider:
   m_ObjectHideFlags: 0
