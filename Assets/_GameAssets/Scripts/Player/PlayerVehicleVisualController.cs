@@ -24,6 +24,18 @@ public class PlayerVehicleVisualController : NetworkBehaviour
         { WheelType.BackRight, 0f }
     };
 
+    public override void OnNetworkSpawn()
+    {
+        if(!IsOwner) { return; }
+
+        _playerVehicleController.OnVehicleCrashed += PlayerVehicleController_OnVehicleCrashed;
+    }
+
+    private void PlayerVehicleController_OnVehicleCrashed()
+    {
+        enabled = false;
+    }
+
     private void Start()
     {
         _wheelFrontLeftRoll = _wheelFrontLeft.localRotation;

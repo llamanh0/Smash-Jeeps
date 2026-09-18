@@ -62,6 +62,8 @@ MeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -83,9 +85,11 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!95 &6943356575426317574
 Animator:
@@ -288,6 +292,7 @@ MonoBehaviour:
   m_VerticalAlignment: 4096
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -435,6 +440,7 @@ GameObject:
   - component: {fileID: 1176299573616834296}
   - component: {fileID: 4481841086905028483}
   - component: {fileID: 4668804717921021266}
+  - component: {fileID: 1515565407703886626}
   - component: {fileID: 870166630483508412}
   m_Layer: 0
   m_Name: FakeBox
@@ -498,8 +504,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  TransitionStateInfoList: []
+  NetworkAnimatorExpanded: 0
+  AuthorityMode: 0
   m_Animator: {fileID: 6943356575426317574}
+  TransitionStateInfoList: []
+  AnimatorParameterEntries:
+    ParameterEntries:
+    - name: IsCollected
+      NameHash: 2145687175
+      Synchronize: 1
+      ParameterType: 9
+    - name: IsRespawned
+      NameHash: -1957187052
+      Synchronize: 1
+      ParameterType: 9
+  AnimatorParametersExpanded: 0
 --- !u!114 &4668804717921021266
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -517,6 +536,19 @@ MonoBehaviour:
   _fakeBoxCollider: {fileID: 870166630483508412}
   _arrowTransform: {fileID: 2002840921258661094}
   _animationDuration: 0.5
+--- !u!114 &1515565407703886626
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7329540408015658100}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff6c6810cf449d44c8ccaf2d343cff64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FakeBoxDamageable
+  ShowTopMostFoldoutHeaderGroup: 1
 --- !u!65 &870166630483508412
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -532,7 +564,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3

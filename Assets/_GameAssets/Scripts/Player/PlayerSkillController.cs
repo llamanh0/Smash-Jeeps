@@ -15,12 +15,45 @@ public class PlayerSkillController : NetworkBehaviour
     [SerializeField] private bool _hasSkillAlready;
     [SerializeField] private float _resetDelay;
 
+    private PlayerVehicleController _playerVehicleController;
+    private PlayerInteractionController _playerInteractionController;
+
     private MysteryBoxSkillsSO _mysteryBoxSkill;
     private bool _isSkillUsed;
     private bool _hasTimerStarted;
     private float _timer;
     private float _timerMax;
     private int _mineAmountCounter;
+
+    public override void OnNetworkSpawn()
+    {
+        if (!IsOwner) return;
+
+        _playerVehicleController.OnVehicleCrashed += PlayerVehicleController_OnVehicleCrashed;
+    }
+
+    public override void OnNetworkDespawn()
+    {
+        if (_playerVehicleController != null)
+        {
+            _playerVehicleController.OnVehicleCrashed -= PlayerVehicleController_OnVehicleCrashed;
+        }
+    }
+
+    private void Awake()
+    {
+        _playerVehicleController = GetComponent<PlayerVehicleController>();
+        _playerInteractionController = GetComponent<PlayerInteractionController>();
+    }
+
+    private void PlayerVehicleController_OnVehicleCrashed()
+    {
+        enabled = false;
+        SkillsUI.Instance.SetSkillToNone();
+        _hasSkillAlready = false;
+        _hasTimerStarted = false;
+        SetRocketLauncherActiveRpc(false);
+    }
 
     private void Update()
     {
@@ -43,6 +76,15 @@ public class PlayerSkillController : NetworkBehaviour
                 SkillsUI.Instance.SetSkillToNone();
                 _hasSkillAlready = false;
                 _hasTimerStarted = false;
+
+                if(_mysteryBoxSkill.SkillType == SkillType.Shield)
+                {
+                    _playerInteractionController.SetShieldActive(false);
+                }
+                if (_mysteryBoxSkill.SkillType == SkillType.Spike)
+                {
+                    _playerInteractionController.SetSpikeActive(false);
+                }
             }
         }
     }
@@ -77,24 +119,22 @@ public class PlayerSkillController : NetworkBehaviour
         if(!_hasSkillAlready) return;
 
         SkillManager.Instance.ActivateSkill(_mysteryBoxSkill.SkillType, transform, OwnerClientId);
-
-        // Skill kullanıldıktan sonra hemen sıfırla (Timer değilse)
-        if (_mysteryBoxSkill.SkillUsageType == SkillUsageType.None || _mysteryBoxSkill.SkillUsageType == SkillUsageType.Amount)
-        {
-            _hasSkillAlready = false;
-            SkillsUI.Instance.SetSkillToNone();
-        }
-        else if (_mysteryBoxSkill.SkillUsageType == SkillUsageType.Timer)
-        {
-            _hasTimerStarted = true;
-            _timerMax = _mysteryBoxSkill.SkillData.SpawnAmountOrTimer;
-            _timer = _timerMax;
-        }
+        SetSkillToNone();
 
         if(_mysteryBoxSkill.SkillType == SkillType.Rocket)
         {
             StartCoroutine(ResetRocketLauncher());
         }
+
+        if(_mysteryBoxSkill.SkillType == SkillType.Shield)
+        {
+            _playerInteractionController.SetShieldActive(true);
+        }
+        if (_mysteryBoxSkill.SkillType == SkillType.Spike)
+        {
+            _playerInteractionController.SetSpikeActive(true);
+        }
+
     }
 
     private void SetSkillToNone()
