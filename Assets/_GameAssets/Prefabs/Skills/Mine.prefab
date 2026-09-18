@@ -364,6 +364,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f210b6af2cea5e42a42502f29284905, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MineDamageable
+  ShowTopMostFoldoutHeaderGroup: 1
+  _mysteryBoxSkill: {fileID: 11400000, guid: 6e0903d967d1844c6948cbc502d6d783, type: 2}
 --- !u!65 &7005923486596121667
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class MineDamageable : NetworkBehaviour, IDamageable
 {
+    [SerializeField] private MysteryBoxSkillsSO _mysteryBoxSkill;
     public override void OnNetworkSpawn()
     {
         if (!IsOwner) { return; }
@@ -23,6 +24,7 @@ public class MineDamageable : NetworkBehaviour, IDamageable
     public void Damage(PlayerVehicleController playerVehicleController)
     {
         playerVehicleController.CrashVehicle();
+        KillScreenUI.Instance.SetSmashedUI("Batu", _mysteryBoxSkill.SkillData.RespawnTimer);
         DestroyRpc();
     }
 
@@ -42,6 +44,16 @@ public class MineDamageable : NetworkBehaviour, IDamageable
             Destroy(gameObject);
         }
     }
+    public ulong GetKillerClientId()
+    {
+        return OwnerClientId;
+    }
+
+    public int GetRespawnTimer()
+    {
+        return _mysteryBoxSkill.SkillData.RespawnTimer;
+    }
+
     public override void OnNetworkDespawn()
     {
         if (!IsOwner) { return; }

@@ -182,4 +182,6 @@ public class PlayerSkillController : NetworkBehaviour
     {
         return _rocketLaunchPoint.position;
     }
+
+    public void OnPlayerRespawned() => enabled = true;
 }

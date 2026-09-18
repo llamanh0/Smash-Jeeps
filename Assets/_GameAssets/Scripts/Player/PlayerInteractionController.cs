@@ -62,8 +62,33 @@ public class PlayerInteractionController : NetworkBehaviour
                 Debug.Log("Shield Active: Damage Blocked");
                 return;
             }
-            damageable.Damage(_playerVehicleController);
+
+            CrashTheVehicle(damageable);
         }
+    }
+
+    private void CrashTheVehicle(IDamageable damageable)
+    {
+        damageable.Damage(_playerVehicleController);
+        SetKillerUIRpc(damageable.GetKillerClientId(),
+            RpcTarget.Single(damageable.GetKillerClientId(), RpcTargetUse.Temp));
+
+        SpawnerManager.Instance.RespawnPlayer(damageable.GetRespawnTimer(), OwnerClientId);
+    }
+
+    [Rpc(SendTo.SpecifiedInParams)]
+    private void SetKillerUIRpc(ulong killerClientId, RpcParams rpcParams)
+    {
+        if (NetworkManager.Singleton.ConnectedClients.TryGetValue(killerClientId, out var killerClient))
+        {
+            KillScreenUI.Instance.SetSmashUI("Batu");
+        }
+    }
+
+    public void OnPlayerRespawned()
+    {
+        enabled = true;
+        _isCrashed = false;
     }
 
     public void SetShieldActive(bool active) => _isShieldActive = active;

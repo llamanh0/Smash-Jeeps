@@ -238,7 +238,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 910253563
+  GlobalObjectIdHash: 2575698415
   InScenePlacedSourceGlobalObjectIdHash: 910253563
   DeferredDespawnTick: 0
   Ownership: 1
@@ -285,6 +285,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
   _playerVehicleController: {fileID: 5765890954461758962}
+  _jeepVisualTransform: {fileID: 4668718234404689339}
+  _playerCollider: {fileID: 7942059211956287943}
   _wheelFrontLeft: {fileID: 3143450209188381646}
   _wheelFrontRight: {fileID: 8676379915786354171}
   _wheelBackLeft: {fileID: 1974679612218649546}

@@ -549,6 +549,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FakeBoxDamageable
   ShowTopMostFoldoutHeaderGroup: 1
+  _mysteryBoxSkill: {fileID: 11400000, guid: 987d4d0d200ae406baf0d77ca5c8dc01, type: 2}
 --- !u!65 &870166630483508412
 BoxCollider:
   m_ObjectHideFlags: 0
