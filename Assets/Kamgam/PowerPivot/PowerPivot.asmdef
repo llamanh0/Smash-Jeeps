@@ -1,0 +1,21 @@
+{
+    "name": "Kamgam.PowerPivot",
+    "references": [],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "com.unity.splines",
+            "expression": "0.0.1",
+            "define": "KAMGAM_UNITY_SPLINES"
+        }
+    ],
+    "noEngineReferences": false
+}

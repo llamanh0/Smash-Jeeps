@@ -3,6 +3,7 @@
   <Project Path="UniTask.Linq.csproj" />
   <Project Path="Assembly-CSharp.csproj" />
   <Project Path="UniTask.Addressables.csproj" />
+  <Project Path="Kamgam.PowerPivot.csproj" />
   <Project Path="Assembly-CSharp-firstpass.csproj" />
   <Project Path="UniTask.TextMeshPro.csproj" />
   <Project Path="Assembly-CSharp-Editor.csproj" />
